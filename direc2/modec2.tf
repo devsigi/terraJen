@@ -20,7 +20,7 @@ resource "aws_instance" "resec2jen" {
   subnet_id 		= var.subnetid
   associate_public_ip_address = "true"
 
-  user_data 		= file("userdata.sh)
+  user_data 		= file("userdata.sh")
 
   tags = {
     Name = "${module.modvars.env}_EC2"
