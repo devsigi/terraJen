@@ -20,7 +20,29 @@ resource "aws_instance" "resec2jen" {
   subnet_id 		= var.subnetid
   associate_public_ip_address = "true"
 
-  user_data 		= file("userdata.sh")
+  #user_data 		= file("userdata.sh")
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+    private_key = file("Jenser.pem")
+    host = self.public_ip
+  }
+  
+  # Copy in the bash script we want to execute.
+  # The source is the location of the bash script
+  # on the local linux box you are executing terraform
+  # from.  The destination is on the new AWS instance.
+  provisioner "file" {
+    source      = "userdata.sh"
+    destination = "/tmp/userdata.sh"
+  }
+  # Change permissions on bash script and execute from ec2-user.
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/userdata.sh",
+      "sudo /tmp/userdata.sh",
+    ]
+  }
 
   tags = {
     Name = "${module.modvars.env}_EC2"
