@@ -3,6 +3,8 @@ sudo yum -y update
 sudo yum upgrade
 # Install OpenJdk 8
 sudo yum install java-11-openjdk-devel -y
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-11.0.15.0.9-2.el8_5.x86_64"
+export PATH=$JAVA_HOME/bin:$PATH
 #sudo amazon-linux-extras install java-openjdk11 -y
 # Install wget
 sudo yum install wget -y
