@@ -24,7 +24,7 @@ resource "aws_instance" "resec2jen" {
   connection {
     type = "ssh"
     user = "ec2-user"
-    private_key = file("Jenser.pem")
+    private_key = file("${var.keyName}.pem")
     host = self.public_ip
   }
   

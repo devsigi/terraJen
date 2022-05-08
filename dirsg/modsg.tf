@@ -82,7 +82,7 @@ resource "aws_subnet" "respubsubs" {
   }
 } */
 
-resource "aws_route_table_association" "public" {
+resource "aws_route_table_association" "resrtasspvt" {
   count = "${length(var.pubsubnets)}"
 
   subnet_id      = "${element(aws_subnet.respubsubs.*.id, count.index)}"
